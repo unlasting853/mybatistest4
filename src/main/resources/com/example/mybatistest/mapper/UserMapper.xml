@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatistest.mapper.UserMapper">
+<!--动态更新-->
+    <update id="update">update user
+                        set
+                           <if test="name !=null"> name   = #{name},</if>
+                           <if test="age != null">age    = #{age},</if>
+                            gender = #{gender},
+                           <if test="phone !=null">phone  = #{phone}</if>
+    where id = #{id}</update>
+
+
+
+    <select id="userlist" resultType="com.example.mybatistest.classs.User">
+        select * from user;
+    </select>
+<!--    循环删除-->
+    <delete id="delete2">
+        delete from user where id in
+                         <foreach collection="dlist" item="id" separator="," open="(" close=")">
+                             #{id}
+                         </foreach>
+    </delete>
+</mapper>

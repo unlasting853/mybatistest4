@@ -1,4 +1,6 @@
 package com.example.mybatistest.service;
 
-public class DeptService implements DeptServiceImp{
+import com.example.mybatistest.service.serviceImp.DeptServiceImp;
+
+public class DeptService implements DeptServiceImp {
 }

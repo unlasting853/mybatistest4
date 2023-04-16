@@ -1,4 +1,7 @@
 package com.example.mybatistest.service;
 
-public class EmpService implements EmpServiceImp{
+import com.example.mybatistest.service.serviceImp.EmpServiceImp;
+
+public class EmpService implements EmpServiceImp {
+
 }

@@ -17,6 +17,12 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+<!--		redis-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
 <!--		德鲁伊连接池-->
 		<dependency>
 			<groupId>com.alibaba</groupId>

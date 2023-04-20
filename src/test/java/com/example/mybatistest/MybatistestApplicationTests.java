@@ -2,14 +2,16 @@ package com.example.mybatistest;
 
 import com.example.mybatistest.classs.User;
 import com.example.mybatistest.mapper.UserMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-@SpringBootTest
+//@SpringBootTest
 class MybatistestApplicationTests {
 	@Autowired
 	private UserMapper userMapper;
@@ -70,6 +72,27 @@ class MybatistestApplicationTests {
 		List<Integer> dlist=
 		Arrays.asList(1,3,6);
 		userMapper.delete2(dlist);
+	}
+	@Test
+	void encodejwt(){
+		Map<String, Object> claims = new HashMap<>();
+		claims.put("id",1);
+		claims.put("username","Tom");
+		String jwt1 = Jwts.builder()
+				.setClaims(claims) //自定义内容（载荷）
+				.signWith(SignatureAlgorithm.HS256, "miyao")//签名算法，密钥
+				.setExpiration(new Date(System.currentTimeMillis() + 3600 * 1000))//有效期
+				.compact();
+		System.out.println(jwt1);
+	}
+	@Test
+	void decodejwt(){
+		Claims claims = Jwts.parser()
+				.setSigningKey("miyao")//指定密钥
+				.parseClaimsJws("eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjgxODIyOTExLCJ1c2VybmFtZSI6IlRvbSJ9.SF-d2ejJb8ccTme8831OOhsosOJ8rMZ1KOuJEsIiIqE")//解析令牌
+				.getBody();
+		System.out.println(claims);
+
 	}
 
 }

@@ -8,8 +8,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class MybatistestApplicationTests {
@@ -94,5 +96,31 @@ class MybatistestApplicationTests {
 		System.out.println(claims);
 
 	}
+	//注入redis客户端
+	@Autowired
+	private StringRedisTemplate redisTemplate;
+	@Test
+	void testredis() {
+		//添加key为name，value为lisi的数据，该数据6秒后过期
+		/**
+		 *	参数1：key值
+		 *	参数2：value值
+		 *	参数3：过期时间
+		 *	参数4：时间单位
+		 */
+		redisTemplate.opsForValue().set("name","lisi",600, TimeUnit.SECONDS);
+		//从数据库中获取对应key的value
+		String value = redisTemplate.opsForValue().get("name");
+		System.out.println(value);
+
+		try {
+			Thread.sleep(6_000);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		value = redisTemplate.opsForValue().get("name");
+		System.out.println(value);
+	}
+
 
 }

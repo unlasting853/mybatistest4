@@ -5,11 +5,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.Map;
+import java.util.Base64;
 
 public class JwtUtils {
 
     private static String signKey = "miyao";
-    private static Long expire = 43200000L;
+    private static Long expire = Long.valueOf(600);
 
     /**
      * 生成JWT令牌

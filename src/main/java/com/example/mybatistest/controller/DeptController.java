@@ -3,18 +3,15 @@ package com.example.mybatistest.controller;
 import com.example.mybatistest.classs.Dept;
 import com.example.mybatistest.classs.Result;
 import com.example.mybatistest.service.DeptService;
-import com.example.mybatistest.service.serviceImp.DeptServiceImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @Slf4j
 @RestController
 public class DeptController {
     @Autowired
-    DeptServiceImp deptService;
+    DeptService deptService;
 //    查询全部部门信息
     @GetMapping("/depts")
     public Result list(){
@@ -25,7 +22,7 @@ public class DeptController {
     }
 //    用get方法以路径传id删除部门
     @DeleteMapping("/depts/{id}")
-    public Result delete(@PathVariable Integer id){
+    public Result delete(@PathVariable Integer id) throws Exception {
         deptService.delete(id);
         return Result.success();
     }

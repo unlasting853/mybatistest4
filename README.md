@@ -1,0 +1,6 @@
+# mybatistest4
+包exception为全局异常捕获
+包interceptor为拦截器
+包utils中的TokenGenerator为生成token的方法
+包config中设置拦截器范围
+token的登录应用在LoginMapper和LoginServiceImp中
